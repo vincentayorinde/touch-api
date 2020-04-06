@@ -1,0 +1,23 @@
+{
+    "name": "touch-api",
+    "version": "1.0.0",
+    "description": "Data Collection for Rural Areas ",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "nodemon server.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/vincentayorinde/touch-api.git"
+    },
+    "author": "OVA",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/vincentayorinde/touch-api/issues"
+    },
+    "homepage": "https://github.com/vincentayorinde/touch-api#readme",
+    "dependencies": {
+        "express": "^4.17.1"
+    }
+}
