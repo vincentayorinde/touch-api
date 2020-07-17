@@ -6,7 +6,8 @@ module.exports = (sequelize, DataTypes) => {
     amount: DataTypes.INTEGER,
     purpose: DataTypes.TEXT,
     type: DataTypes.STRING,
-    no_of_days: DataTypes.INTEGER
+    no_of_days: DataTypes.INTEGER,
+    userId: DataTypes.INTEGER
   }, {});
   dues.associate = function(models) {
     // associations can be defined here
