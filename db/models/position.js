@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
   position.associate = function(models) {
     // associations can be defined here
     position.hasMany(models.user,{
-      foreignKey: 'positionlId',
+      foreignKey: 'positionId',
       as: 'position',
       cascade: true,
     })

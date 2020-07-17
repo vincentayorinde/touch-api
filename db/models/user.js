@@ -11,10 +11,7 @@ module.exports = (sequelize, DataTypes) => {
             other_name: DataTypes.STRING,
             email: DataTypes.STRING,
             password: DataTypes.STRING,
-            role: DataTypes.STRING,
-            moduleId: DataTypes.STRING,
-            positionId: DataTypes.STRING,
-            electoralId: DataTypes.STRING
+            role: DataTypes.STRING
         },
         {
             hooks: {
@@ -26,21 +23,11 @@ module.exports = (sequelize, DataTypes) => {
     );
     user.associate = function (models) {
         // associations can be defined here
-        user.belongsTo(models.module,{
-          foreignKey: 'moduleId',
-          as: 'module',
-          cascade: true,
-        });
-        user.belongsTo(models.position,{
-          foreignKey: 'positionId',
-          as: 'posistion',
-          cascade: true,
-        });
-        user.belongsTo(models.electoral,{
-          foreignKey: 'electoralId',
-          as: 'electoral',
-          cascade: true,
-        });
+        user.hasMany(models.people,{
+            foreignKey: 'userId',
+            as: 'user',
+            cascade: true,
+          })
     };
     user.prototype.passwordsMatch = function match(password) {
         return bcrypt.compare(password, this.password);

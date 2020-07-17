@@ -8,7 +8,7 @@ export default {
             last_name: 'required|alpha',
             email: 'required|email|unique:user',
             password: 'required|min:8|max:30',
-            polling_station: 'required|alpha'
+            role: 'required'
         };
 
         let data = req.body;
