@@ -1,4 +1,3 @@
-import Sequelize from 'sequelize';
 import db from '../../db/models';
 import { expiireThisToken } from '../../utils'
 

@@ -7,9 +7,9 @@ const router = express.Router();
 
 router.post(
     '/add',
-    // Middleware.authenticate,
-    // Middleware.isExpiredToken,
-    // Middleware.isAdmin,
+    Middleware.authenticate,
+    Middleware.isExpiredToken,
+    Middleware.isAdmin,
     Validation.addModule,
     Module.addModule
 );
@@ -17,17 +17,17 @@ router.get('/', Module.getModules);
 
 router.put(
     '/:id',
-    // Middleware.authenticate,
-    // Middleware.isExpiredToken,
-    // Middleware.isAdmin,
+    Middleware.authenticate,
+    Middleware.isExpiredToken,
+    Middleware.isAdmin,
     Validation.addModule,
     Module.updateModule
 );
 router.delete(
     '/:id',
-    // Middleware.authenticate,
-    // Middleware.isExpiredToken,
-    // Middleware.isAdmin,
+    Middleware.authenticate,
+    Middleware.isExpiredToken,
+    Middleware.isAdmin,
     Module.deleteModule
 );
 
