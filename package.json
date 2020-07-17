@@ -1,0 +1,55 @@
+{
+    "name": "touch-api",
+    "version": "1.0.0",
+    "engines": {
+        "node": "10.16.3"
+    },
+    "description": "",
+    "entry": "server/index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "dev": "nodemon --exec babel-node server/index.js",
+        "start": "babel-node server/index.js",
+        "rollback:migration": "sequelize db:migrate:undo:all",
+        "migrate": "sequelize db:migrate",
+        "heroku-postbuild": " npm run migrate"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/vincentayorinde/touch-api.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/vincentayorinde/touch-api/issues"
+    },
+    "homepage": "https://github.com/vincentayorinde/touch-api#readme",
+    "devDependencies": {},
+    "dependencies": {
+        "@babel/cli": "^7.8.4",
+        "@babel/core": "^7.9.0",
+        "@babel/node": "^7.8.7",
+        "@babel/preset-env": "^7.9.5",
+        "bcryptjs": "^2.4.3",
+        "body-parser": "^1.19.0",
+        "cloudinary": "^1.21.0",
+        "consola": "^2.11.3",
+        "cookie-parser": "^1.4.5",
+        "cors": "^2.8.5",
+        "dotenv": "^8.2.0",
+        "express": "^4.17.1",
+        "express-fileupload": "^1.1.7-alpha.3",
+        "express-session": "^1.17.0",
+        "indicative": "^5.0.8",
+        "jsonwebtoken": "^8.5.1",
+        "morgan": "^1.10.0",
+        "mysql": "^2.18.1",
+        "mysql2": "^2.1.0",
+        "nodemon": "^2.0.3",
+        "path": "^0.12.7",
+        "pg": "^8.1.0",
+        "pg-hstore": "^2.3.3",
+        "sequelize": "^5.21.6",
+        "sequelize-cli": "^5.5.1"
+    }
+}
