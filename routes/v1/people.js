@@ -1,9 +1,9 @@
-import express from 'express';
-import Validation from '../../validators/people';
-import Middleware from '../../middleware';
-import People from '../../controllers/people';
+import express from 'express'
+import Validation from '../../validators/people'
+import Middleware from '../../middleware'
+import People from '../../controllers/people'
 
-const router = express.Router();
+const router = express.Router()
 
 router.post(
     '/add',
@@ -12,23 +12,28 @@ router.post(
     Middleware.isAdmin,
     Validation.addPeople,
     People.addPeople
+)
+router.get(
+    '/',
+    Middleware.authenticate,
+    Middleware.isExpiredToken,
+    People.getAllPeople
+)
+
+router.put(
+    '/:id',
+    Middleware.authenticate,
+    Middleware.isExpiredToken,
+    Middleware.isAdmin,
+    Validation.addPeople,
+    People.updatePeople
 );
-// router.get('/', People.getElectoralAreas);
+router.delete(
+    '/:id',
+    Middleware.authenticate,
+    Middleware.isExpiredToken,
+    Middleware.isAdmin,
+    People.deletePeople
+);
 
-// router.put(
-//     '/:id',
-//     Middleware.authenticate,
-//     Middleware.isExpiredToken,
-//     Middleware.isAdmin,
-//     Validation.addElectoralArea,
-//     Electoral.updateElectoralArea
-// );
-// router.delete(
-//     '/:id',
-//     Middleware.authenticate,
-//     Middleware.isExpiredToken,
-//     Middleware.isAdmin,
-//     Electoral.deleteElectoralArea
-// );
-
-export default router;
+export default router
