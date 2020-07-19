@@ -9,7 +9,8 @@ export default {
             amount: 'required|integer',
             purpose: 'required',
             type: 'required|alpha',
-            no_of_days: 'required|integer',
+            from: 'required',
+            to: 'required',
             userId: 'required|integer',
         }
 

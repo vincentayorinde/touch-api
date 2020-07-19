@@ -23,8 +23,11 @@ module.exports = {
       type: {
         type: Sequelize.STRING
       },
-      no_of_days: {
-        type: Sequelize.INTEGER
+      from: {
+        type: Sequelize.DATE
+      },
+      to: {
+        type: Sequelize.DATE
       },
       userId: {
         type: Sequelize.INTEGER

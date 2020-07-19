@@ -3,7 +3,7 @@ import db from '../../db/models';
 export default {
     addModule: async (req, res) => {
         try {
-            const checkModule = await db.module.findOne({
+            const checkModule = await db.modules.findOne({
                 where: { name: req.body.name },
             });
             if (checkModule) {
@@ -12,7 +12,7 @@ export default {
                 });
             }
            
-            const module = await db.module.create({
+            const module = await db.modules.create({
                 name: req.body.name
             });
             return res.status(201).json({
@@ -30,7 +30,11 @@ export default {
 
     getModules: async (req, res) => {
         try {
-            const modules = await db.module.findAndCountAll({});
+            const modules = await db.modules.findAndCountAll({
+                order: [
+                    ['createdAt', 'DESC']
+                ]
+            });
             if (modules) {
                 return res.status(200).json({
                     message: 'Modules Retrieved Successfully',
@@ -48,7 +52,7 @@ export default {
 
     updateModule: async (req, res) => {
         try {
-            const foundModule = await db.module.findOne({
+            const foundModule = await db.modules.findOne({
                 where: { id: req.params.id },
             });
             if (!foundModule) {
@@ -75,7 +79,7 @@ export default {
 
     deleteModule: async (req, res) => {
         try {
-            const foundModule = await db.module.findOne({
+            const foundModule = await db.modules.findOne({
                 where: { id: req.params.id },
             });
             if (!foundModule) {

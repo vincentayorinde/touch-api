@@ -3,7 +3,7 @@ import db from '../../db/models';
 export default {
     addPosition: async (req, res) => {
         try {
-            const checkPosition = await db.position.findOne({
+            const checkPosition = await db.positions.findOne({
                 where: { name: req.body.name },
             });
             if (checkPosition) {
@@ -12,7 +12,7 @@ export default {
                 });
             }
            
-            const position = await db.position.create({
+            const position = await db.positions.create({
                 name: req.body.name
             });
             return res.status(201).json({
@@ -30,7 +30,11 @@ export default {
 
     getPositions: async (req, res) => {
         try {
-            const positions = await db.position.findAndCountAll({});
+            const positions = await db.positions.findAndCountAll({
+                order: [
+                    ['createdAt', 'DESC']
+                ]
+            });
             if (positions) {
                 return res.status(200).json({
                     message: 'Positions Retrieved Successfully',
@@ -48,7 +52,7 @@ export default {
 
     updatePosition: async (req, res) => {
         try {
-            const foundPosition = await db.position.findOne({
+            const foundPosition = await db.positions.findOne({
                 where: { id: req.params.id },
             });
             if (!foundPosition) {
@@ -75,7 +79,7 @@ export default {
 
     deletePosition: async (req, res) => {
         try {
-            const foundPosition = await db.position.findOne({
+            const foundPosition = await db.positions.findOne({
                 where: { id: req.params.id },
             });
             if (!foundPosition) {

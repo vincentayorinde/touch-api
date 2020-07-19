@@ -1,10 +1,15 @@
-import { sanitize, } from 'indicative';
+import { sanitize, validations } from 'indicative';
 import { messages, validatorInstance, sanitizeRules } from '../../utils';
 
 export default {
-    addPosition: async (req, res, next) => {
+    addVoter: async (req, res, next) => {
         const rules = {
-            name: 'required'
+            voter_id: 'required',
+            first_name: 'required|alpha',
+            last_name: 'required|alpha',
+            gender: 'required',
+            dob: 'required',
+            occupation: 'required|alpha',
         };
 
         let data = req.body;

@@ -5,8 +5,8 @@ export default {
     addPeople: async (req, res, next) => {
         const rules = {
             voters_id: 'required',
-            first_name: 'required|alpha',
-            last_name: 'required|alpha',
+            first_name: 'required',
+            last_name: 'required',
             positionId: 'required',
             moduleId: 'required|integer',
             electoralId: 'required',

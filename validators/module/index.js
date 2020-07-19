@@ -4,7 +4,7 @@ import { messages, validatorInstance, sanitizeRules } from '../../utils';
 export default {
     addModule: async (req, res, next) => {
         const rules = {
-            name: 'required|alpha'
+            name: 'required'
         };
 
         let data = req.body;

@@ -3,7 +3,7 @@ import db from '../../db/models';
 export default {
     addElectoralArea: async (req, res) => {
         try {
-            const checkElectoralArea = await db.electoral.findOne({
+            const checkElectoralArea = await db.electorals.findOne({
                 where: { name: req.body.name },
             });
             if (checkElectoralArea) {
@@ -12,7 +12,7 @@ export default {
                 });
             }
            
-            const electoralArea = await db.electoral.create({
+            const electoralArea = await db.electorals.create({
                 name: req.body.name
             });
             return res.status(201).json({
@@ -30,7 +30,11 @@ export default {
 
     getElectoralAreas: async (req, res) => {
         try {
-            const electoralAreas = await db.electoral.findAndCountAll({});
+            const electoralAreas = await db.electorals.findAndCountAll({
+                order: [
+                    ['createdAt', 'DESC']
+                ]
+            });
             if (electoralAreas) {
                 return res.status(200).json({
                     message: 'Electoral Areas Retrieved Successfully',
@@ -48,7 +52,7 @@ export default {
 
     updateElectoralArea: async (req, res) => {
         try {
-            const foundElectoralArea = await db.electoral.findOne({
+            const foundElectoralArea = await db.electorals.findOne({
                 where: { id: req.params.id },
             });
             if (!foundElectoralArea) {
@@ -75,7 +79,7 @@ export default {
 
     deleteElectoralArea: async (req, res) => {
         try {
-            const foundElectoralArea = await db.electoral.findOne({
+            const foundElectoralArea = await db.electorals.findOne({
                 where: { id: req.params.id },
             });
             if (!foundElectoralArea) {

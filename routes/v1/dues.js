@@ -13,21 +13,21 @@ router.post(
     Validation.addDue,
     Dues.addDue
 )
-// router.get(
-//     '/',
-//     Middleware.authenticate,
-//     Middleware.isExpiredToken,
-//     People.getAllPeople
-// )
+router.get(
+    '/',
+    Middleware.authenticate,
+    Middleware.isExpiredToken,
+    Dues.getDues
+)
 
-// router.put(
-//     '/:id',
-//     Middleware.authenticate,
-//     Middleware.isExpiredToken,
-//     Middleware.isAdmin,
-//     Validation.addPeople,
-//     People.updatePeople
-// );
+router.put(
+    '/:id',
+    Middleware.authenticate,
+    Middleware.isExpiredToken,
+    Middleware.isAdmin,
+    Validation.addDue,
+    Dues.updateDue
+)
 // router.delete(
 //     '/:id',
 //     Middleware.authenticate,

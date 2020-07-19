@@ -6,15 +6,17 @@ module.exports = (sequelize, DataTypes) => {
     amount: DataTypes.INTEGER,
     purpose: DataTypes.TEXT,
     type: DataTypes.STRING,
-    no_of_days: DataTypes.INTEGER,
+    from: DataTypes.DATE,
+    to: DataTypes.DATE,
     userId: DataTypes.INTEGER
   }, {});
   dues.associate = function(models) {
     // associations can be defined here
-    dues.belongsTo(models.people,{
-      foreignKey: 'peopleId',
+    dues.belongsToMany(models.peoples,{
+      through: 'PeopleDues',
       as: 'people',
-      cascade: true,
+      foreignKey: 'duesId',
+      otherKey: 'peopleId'
     })
   };
   return dues;

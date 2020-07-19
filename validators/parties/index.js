@@ -1,10 +1,12 @@
-import { sanitize, } from 'indicative';
+import { sanitize, validations } from 'indicative';
 import { messages, validatorInstance, sanitizeRules } from '../../utils';
 
 export default {
-    addPosition: async (req, res, next) => {
+    addParty: async (req, res, next) => {
         const rules = {
-            name: 'required'
+            name: 'required|alpha',
+            bio: 'required',
+            established: 'required',
         };
 
         let data = req.body;

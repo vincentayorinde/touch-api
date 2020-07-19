@@ -1,3 +1,4 @@
+import Sequelize from 'sequelize';
 import db from '../../db/models';
 import { expiireThisToken } from '../../utils'
 
@@ -6,9 +7,9 @@ export default {
         const {
             first_name,
             last_name,
-            other_name,
             password,
             email,
+            gender,
             role,
         } = req.body;
 
@@ -18,9 +19,9 @@ export default {
             const user = await db.user.create({
                 first_name,
                 last_name,
-                other_name,
                 email: newEmail,
                 password,
+                gender,
                 role,
             });
             console.log('the user', user);

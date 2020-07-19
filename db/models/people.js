@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const people = sequelize.define('people', {
+  const people = sequelize.define('peoples', {
     voters_id: DataTypes.STRING,
     first_name: DataTypes.STRING,
     last_name: DataTypes.STRING,
@@ -13,17 +13,17 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   people.associate = function(models) {
     // associations can be defined here
-    people.belongsTo(models.module,{
+    people.belongsTo(models.modules,{
       foreignKey: 'moduleId',
       as: 'module',
       cascade: true,
     });
-    people.belongsTo(models.position,{
+    people.belongsTo(models.positions,{
       foreignKey: 'positionId',
-      as: 'posistion',
+      as: 'position',
       cascade: true,
     });
-    people.belongsTo(models.electoral,{
+    people.belongsTo(models.electorals,{
       foreignKey: 'electoralId',
       as: 'electoral',
       cascade: true,
@@ -33,10 +33,11 @@ module.exports = (sequelize, DataTypes) => {
       as: 'user',
       cascade: true,
     });
-    people.hasMany(models.dues,{
+    people.belongsToMany(models.dues,{
+      through: 'PeopleDues',
+      as: 'dues',
       foreignKey: 'peopleId',
-      as: 'people',
-      cascade: true,
+      otherKey: 'duesId'
     })
   };
   return people;

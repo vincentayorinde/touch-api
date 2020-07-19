@@ -7,7 +7,8 @@ export default {
             amount,
             purpose,
             type,
-            no_of_days,
+            from,
+            to,
             userId,
         } = req.body
 
@@ -20,7 +21,7 @@ export default {
                     message: 'You prohibited from performing operation',
                 })
             }
-            const people = await db.people.findOne({
+            const people = await db.peoples.findOne({
                 where: { id: peopleId },
             })
             if (!people) {
@@ -28,7 +29,7 @@ export default {
                     message: 'Person does not exist',
                 })
             }
-            const position = await db.position.findOne({
+            const position = await db.positions.findOne({
                 where: { id: positionId },
             })
             if (!position) {
@@ -37,18 +38,16 @@ export default {
                 })
             }
 
-            console.log('the people id', peopleId)
-
             const due = await db.dues.create({
                 peopleId,
                 positionId,
                 amount,
                 purpose,
                 type,
-                no_of_days,
+                from,
+                to,
                 userId,
             })
-            console.log('the due', due)
 
             return res.status(201).json({
                 message: 'Dues added Successfully',
@@ -65,7 +64,11 @@ export default {
 
     getDues: async (req, res) => {
         try {
-            const dues = await db.dues.findAndCountAll({})
+            const dues = await db.dues.findAndCountAll({
+                order: [
+                    ['createdAt', 'DESC']
+                ]
+            })
             if (dues) {
                 return res.status(200).json({
                     message: 'All Dues Retrieved Successfully',
@@ -80,29 +83,19 @@ export default {
             })
         }
     },
-    updatePeople: async (req, res) => {
+    updateDue: async (req, res) => {
         const {
-            voters_id,
-            first_name,
-            last_name,
-            other_name,
-            polling_station,
+            peopleId,
             positionId,
-            moduleId,
-            electoralId,
+            amount,
+            purpose,
+            type,
+            from,
+            to,
             userId,
         } = req.body
 
         try {
-            const foundPeople = await db.people.findOne({
-                where: { id: req.params.id },
-            })
-            if (!foundPeople) {
-                return res.status(404).send({
-                    error: 'Person does not exist',
-                })
-            }
-
             const user = await db.user.findOne({
                 where: { id: userId, role: 'admin' },
             })
@@ -111,7 +104,25 @@ export default {
                     message: 'You prohibited from performing operation',
                 })
             }
-            const position = await db.position.findOne({
+
+            const dues = await db.dues.findOne({
+                where: { id: req.params.id },
+            })
+            if (!dues) {
+                return res.status(404).json({
+                    message: 'Due does not exist',
+                })
+            }
+
+            const people = await db.peoples.findOne({
+                where: { id: peopleId },
+            })
+            if (!people) {
+                return res.status(404).json({
+                    message: 'Person does not exist',
+                })
+            }
+            const position = await db.positions.findOne({
                 where: { id: positionId },
             })
             if (!position) {
@@ -119,37 +130,20 @@ export default {
                     message: 'Position does not exist',
                 })
             }
-            const module = await db.module.findOne({
-                where: { id: moduleId },
-            })
-            if (!module) {
-                return res.status(404).json({
-                    message: 'Module does not exist',
-                })
-            }
-            const electoral = await db.electoral.findOne({
-                where: { id: electoralId },
-            })
-            if (!electoral) {
-                return res.status(404).json({
-                    message: 'Electoral area does not exist',
-                })
-            }
 
-            const people = await foundPeople.update({
-                voters_id,
-                first_name,
-                last_name,
-                other_name,
-                polling_station,
+            const updatedDues = await dues.update({
+                peopleId,
                 positionId,
-                moduleId,
-                electoralId,
+                amount,
+                purpose,
+                type,
+                from,
+                to,
                 userId,
             })
             res.status(200).json({
-                message: 'Person updated successfully',
-                people,
+                message: 'Dues updated successfully',
+                dues: updatedDues,
             })
         } catch (e) {
             console.log('the error', e)

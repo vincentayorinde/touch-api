@@ -24,7 +24,7 @@ export default {
                     message: 'You prohibited from performing operation',
                 })
             }
-            const position = await db.position.findOne({
+            const position = await db.positions.findOne({
                 where: { id: positionId },
             })
             if (!position) {
@@ -32,7 +32,7 @@ export default {
                     message: 'Position does not exist',
                 })
             }
-            const module = await db.module.findOne({
+            const module = await db.modules.findOne({
                 where: { id: moduleId },
             })
             if (!module) {
@@ -40,7 +40,7 @@ export default {
                     message: 'Module does not exist',
                 })
             }
-            const electoral = await db.electoral.findOne({
+            const electoral = await db.electorals.findOne({
                 where: { id: electoralId },
             })
             if (!electoral) {
@@ -49,7 +49,7 @@ export default {
                 })
             }
 
-            const people = await db.people.create({
+            const people = await db.peoples.create({
                 voters_id,
                 first_name,
                 last_name,
@@ -77,7 +77,11 @@ export default {
 
     getAllPeople: async (req, res) => {
         try {
-            const people = await db.people.findAndCountAll({})
+            const people = await db.peoples.findAndCountAll({
+                    order: [
+                        ['createdAt', 'DESC']
+                    ]
+            })
             if (people) {
                 return res.status(200).json({
                     message: 'All People Retrieved Successfully',
@@ -106,7 +110,7 @@ export default {
         } = req.body
 
         try {
-            const foundPeople = await db.people.findOne({
+            const foundPeople = await db.peoples.findOne({
                 where: { id: req.params.id },
             })
             if (!foundPeople) {
@@ -123,7 +127,7 @@ export default {
                     message: 'You prohibited from performing operation',
                 })
             }
-            const position = await db.position.findOne({
+            const position = await db.positions.findOne({
                 where: { id: positionId },
             })
             if (!position) {
@@ -131,7 +135,7 @@ export default {
                     message: 'Position does not exist',
                 })
             }
-            const module = await db.module.findOne({
+            const module = await db.modules.findOne({
                 where: { id: moduleId },
             })
             if (!module) {
@@ -139,7 +143,7 @@ export default {
                     message: 'Module does not exist',
                 })
             }
-            const electoral = await db.electoral.findOne({
+            const electoral = await db.electorals.findOne({
                 where: { id: electoralId },
             })
             if (!electoral) {
@@ -173,7 +177,7 @@ export default {
     },
     deletePeople: async (req, res) => {
         try {
-            const foundPeople = await db.people.findOne({
+            const foundPeople = await db.peoples.findOne({
                 where: { id: req.params.id },
             });
             if (!foundPeople) {
