@@ -37,7 +37,7 @@ Routes(app);
 
 app.get('/', (req, res) =>
     res.status(200).json({
-        message: 'Welcome to uVote API',
+        message: 'Welcome to Touch API',
     })
 );
 app.use((req, res) =>
