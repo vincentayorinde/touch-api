@@ -8,8 +8,8 @@ export default {
             first_name: 'required',
             last_name: 'required',
             positionId: 'required',
-            moduleId: 'required|integer',
             electoralId: 'required',
+            memberType: 'required',
             userId: 'required|integer',
         }
 

@@ -24,8 +24,6 @@ export default {
                 gender,
                 role,
             });
-            console.log('the user', user);
-
             return res.status(201).json({
                 message: 'User Registration Successful',
                 user: user.response(),

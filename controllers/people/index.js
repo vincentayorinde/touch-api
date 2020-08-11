@@ -10,8 +10,8 @@ export default {
             other_name,
             polling_station,
             positionId,
-            moduleId,
             electoralId,
+            memberType,
             userId,
         } = req.body
 
@@ -32,14 +32,6 @@ export default {
                     message: 'Position does not exist',
                 })
             }
-            const module = await db.modules.findOne({
-                where: { id: moduleId },
-            })
-            if (!module) {
-                return res.status(404).json({
-                    message: 'Module does not exist',
-                })
-            }
             const electoral = await db.electorals.findOne({
                 where: { id: electoralId },
             })
@@ -56,14 +48,14 @@ export default {
                 other_name,
                 polling_station,
                 positionId,
-                moduleId,
                 electoralId,
+                memberType,
                 userId,
             })
             console.log('the person', people)
 
             return res.status(201).json({
-                message: 'Person added Successful',
+                message: 'Member added Successfully',
                 person: people,
             })
         } catch (e) {
@@ -84,7 +76,7 @@ export default {
             })
             if (people) {
                 return res.status(200).json({
-                    message: 'All People Retrieved Successfully',
+                    message: 'All Members Retrieved Successfully',
                     people,
                 })
             }
@@ -104,7 +96,6 @@ export default {
             other_name,
             polling_station,
             positionId,
-            moduleId,
             electoralId,
             userId,
         } = req.body
@@ -135,14 +126,6 @@ export default {
                     message: 'Position does not exist',
                 })
             }
-            const module = await db.modules.findOne({
-                where: { id: moduleId },
-            })
-            if (!module) {
-                return res.status(404).json({
-                    message: 'Module does not exist',
-                })
-            }
             const electoral = await db.electorals.findOne({
                 where: { id: electoralId },
             })
@@ -159,7 +142,6 @@ export default {
                 other_name,
                 polling_station,
                 positionId,
-                moduleId,
                 electoralId,
                 userId,
             })
@@ -199,4 +181,49 @@ export default {
             });
         }
     },
+
+    getGeneralMembership: async (req, res) => {
+        try {
+            const people = await db.peoples.findAndCountAll({
+                    order: [
+                        ['createdAt', 'DESC']
+                    ],
+                    where: { memberType: 'General membership'}
+            })
+            if (people) {
+                return res.status(200).json({
+                    message: 'All General Members Retrieved Successfully',
+                    people,
+                })
+            }
+        } catch (e) {
+            console.log('the error', e)
+            /* istanbul ignore next */
+            return res.status(500).json({
+                error: e.message,
+            })
+        }
+    },
+    getPollingStationExecutives: async (req, res) => {
+        try {
+            const people = await db.peoples.findAndCountAll({
+                    order: [
+                        ['createdAt', 'DESC']
+                    ],
+                    where: { memberType: 'Polling Station executives'}
+            })
+            if (people) {
+                return res.status(200).json({
+                    message: 'All General Members Retrieved Successfully',
+                    people,
+                })
+            }
+        } catch (e) {
+            console.log('the error', e)
+            /* istanbul ignore next */
+            return res.status(500).json({
+                error: e.message,
+            })
+        }
+    }
 }

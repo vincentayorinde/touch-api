@@ -20,6 +20,19 @@ router.get(
     People.getAllPeople
 )
 
+router.get(
+    '/general-membership',
+    Middleware.authenticate,
+    Middleware.isExpiredToken,
+    People.getGeneralMembership
+)
+router.get(
+    '/polling-station-executives',
+    Middleware.authenticate,
+    Middleware.isExpiredToken,
+    People.getPollingStationExecutives
+)
+
 router.put(
     '/:id',
     Middleware.authenticate,
@@ -27,13 +40,13 @@ router.put(
     Middleware.isAdmin,
     Validation.addPeople,
     People.updatePeople
-);
+)
 router.delete(
     '/:id',
     Middleware.authenticate,
     Middleware.isExpiredToken,
     Middleware.isAdmin,
     People.deletePeople
-);
+)
 
 export default router
